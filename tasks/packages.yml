@@ -1,0 +1,209 @@
+- name: create bin directory
+  become: yes
+  become_user: "{{user}}"
+  file:
+    path: "{{user_home}}/bin"
+    state: directory
+    mode: 0775
+
+
+- name: Install essential packages
+  ignore_errors: yes
+  apt:
+    name: [
+      'python3-apt',
+      'ant',
+      'atool',
+      'autojump',
+      'bash-completion',
+      'build-essential',
+      'blueman', #bluetooth
+      'chromium-browser',
+      'cifs-utils',
+      'cmake',
+      'coreutils',
+      'copyq',
+      'cowsay',
+      'devscripts',
+      'emacs',
+      'gftp',
+      'git',
+      gparted,
+      'gt5',
+      'htop',
+      'keepassxc',
+      'pass',
+      'kpcli',
+      'libpq-dev',
+      'libxml2-utils',
+      'mc',
+      nodejs,
+      nfs-common,
+      orage,
+      'p7zip',
+      'rake',
+      'ruby-dev',
+      'screen',
+      'shunit2',
+      'sshfs',
+      'sublime-text',
+      'time',
+      'tmux',
+      'txt2regex',
+      'udiskie', # package to facilitate mount of HD
+      'unrar',
+      'unzip',
+      'x11-utils',
+      'xdotool',
+      'xmlindent',
+      'xsltproc',
+      'xvfb',
+      'yajl-tools',
+      'zsh'
+      ]
+
+- name: Install network packages
+  ignore_errors: yes
+  apt:
+    name: [
+      curl,
+      'dnsmasq',
+      'dnsmasq-utils',
+      'elinks',
+      'gufw',
+      'irssi',
+      'libnotify-bin',
+      libtest-www-mechanize-perl,
+      libnet-whois-ip-perl,
+      'lighttpd',
+      'network-manager',
+      'network-manager-gnome',
+      'network-manager-openvpn',
+      'network-manager-openvpn-gnome',
+      'network-manager-pptp',
+      'network-manager-pptp-gnome',
+      'network-manager-vpnc',
+      'network-manager-vpnc-gnome',
+      'ngrep',
+      'nmap',
+      'openssh-server',
+      openresolv,
+      'strace',
+      'wavemon',
+      'whois',
+      ]
+
+
+- name: Install NetCDF
+  ignore_errors: yes
+  apt:
+    name: [
+      libfreetype6-dev,
+      hdf4-tools,
+      hdf5-helpers,
+      hdf5-tools,
+      hdfview,
+      libhdf5-dev,
+      libjpeg-dev,
+      libnetcdf-dev,
+      libudunits2-dev,
+      nco,
+      ncview,
+      netcdf-bin
+    ]
+
+
+- name: install virtual packages
+  ignore_errors: yes
+  apt:
+    name: [
+      virtualbox,
+      bundler,
+      gem,
+      rbenv,
+      #xorg-video-abi-23,
+      xserver-xorg-core,
+      xserver-xorg-input-all, # VERY IMPORTANT. HAS frozen my logging prompt
+      virtualbox-guest-dkms,
+      virtualbox-guest-utils,
+      virtualbox-guest-x11,
+      virtualenv,
+      linux-headers-generic
+      ]
+
+- name: Install vagrant packages
+  ignore_errors: yes
+  apt:
+    deb: "{{vagrant_url}}"
+    only_upgrade: yes
+
+- name: Install chef-dk
+  ignore_errors: yes
+  apt:
+    deb: "{{chefdk_url}}"
+
+- name: install berkshelf plugin
+  shell: command -v berks >/dev/null || vagrant plugin install vagrant-berkshelf
+
+- name: install make packages
+  ignore_errors: yes
+  apt:
+    name: [
+      autoconf,
+      automake,
+      checkinstall,
+      intltool,
+      libcurl4-openssl-dev,
+      libevent-dev,
+      libglib2.0-dev,
+      libgtk2.0-dev,
+      libnotify-dev,
+      libtool,
+      libxml2-dev,
+      pkg-config
+    ]
+
+- name: install multimedia packages
+  ignore_errors: yes
+  apt:
+    name: [
+      arandr,
+      cantata,
+      clementine,
+      ffmpeg,
+      flac,
+      gimp,
+      gmpc,
+      gstreamer1.0-plugins-bad,
+      gstreamer1.0-plugins-good,
+      gstreamer1.0-plugins-ugly,
+      handbrake,
+      handbrake-cli,
+      imagemagick,
+      lmms,
+      mediainfo,
+      mp3blaster,
+      python-gi,
+      timidity,
+      vlc,
+      vlc-data,
+      vlc-plugin-notify,
+      webp,
+    ]
+
+
+- name: install database packages
+  ignore_errors: yes
+  apt:
+    name: [
+      pgadmin3,
+      postgresql,
+      sqlite3,
+      sqlitebrowser,
+      ]
+
+
+- name: Install zoom
+  ignore_errors: yes
+  apt:
+    deb: "{{zoom_url}}"
