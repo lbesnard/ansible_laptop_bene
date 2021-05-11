@@ -112,12 +112,18 @@
       netcdf-bin
     ]
 
+- name: Install virtualbox specific version
+  ignore_errors: yes
+  apt:
+    deb: "{{vbox_url}}"
+    only_upgrade: yes
+
+
 
 - name: install virtual packages
   ignore_errors: yes
   apt:
     name: [
-      virtualbox,
       bundler,
       gem,
       rbenv,
